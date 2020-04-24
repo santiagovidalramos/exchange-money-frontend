@@ -1,0 +1,43 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+   {{ title }}!
+  </h1>
+  <mat-card style="width:300px;margin: auto;display: block;" color="accent">
+    <mat-form-field>
+      <mat-select placeholder="Seleccione tipo de moneda origen" [(ngModel)]="request.source" name="type">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">
+              {{currency}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select placeholder="Seleccione tipo de moneda a cambiar" [(ngModel)]="request.destiny">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">
+              {{currency}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input type="number" matInput placeholder="Cantidad a cambiar" [(ngModel)]="request.amount">
+    </mat-form-field>
+    <br>
+    <button  *ngIf="!loading" mat-raised-button color="warn" [disabled]="isNotValid()" (click)="exchange()">Cambiar</button>
+    <br>
+    <br>
+    <div *ngIf="loading">
+      <mat-progress-bar [color]="warn" mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div *ngIf="response">
+      <span>Tipo de Cambio:{{response.data.change}}</span>
+      <br>
+      <span>Monto:{{response.data.amount}}</span>
+      <br>
+      <span>Monto Convertido:{{response.data.amountConverted}}</span>
+    </div> 
+  </mat-card>
+</div>
+
+
